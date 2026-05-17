@@ -1,5 +1,5 @@
 <div align="center">
-	<h1>rogen</h1>
+	<h1>Rogen</h1>
     <p>A tool for feature-based folder structures with Rojo.</p>
     <img src="example.png" alt="Visual mapping of VS Code to Roblox Explorer" width="100%">
 </div>
