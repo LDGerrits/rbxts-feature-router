@@ -188,7 +188,7 @@ function resolveActiveModes(config, hasConfig, cliMode, env) {
 		} else {
 			for (const key in config) {
 				if (key !== "sourceDir" && key !== "project" && typeof config[key] === "object" && !Array.isArray(config[key])) {
-					if (key === "luau" && env.isDarkluaProject) continue;
+					if (key === "luau" && env.isTsProject) continue;
 					if (key === "ts" && !env.isTsProject) continue;
 					if (key === "darklua" && !env.isDarkluaProject) continue;
 
