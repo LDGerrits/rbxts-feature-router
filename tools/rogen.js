@@ -76,8 +76,8 @@ const serviceParents = {
 	StarterCharacterScripts: "StarterPlayer",
 };
 
-const lowerServiceMap = Object.fromEntries(Object.entries(services).map(([k, v]) => [k.toLowerCase(), v]));
-const separatorRegex = new RegExp(`[\\.\\-_](${Object.keys(lowerServiceMap).join("|")})$`, "i");
+const lowerCaseServiceMap = Object.fromEntries(Object.entries(services).map(([k, v]) => [k.toLowerCase(), v]));
+const separatorRegex = new RegExp(`[\\.\\-_](${Object.keys(lowerCaseServiceMap).join("|")})$`, "i");
 const pascalCaseRegex = new RegExp(`(${Object.keys(services).join("|")})$`);
 
 // -------------------------------
@@ -247,13 +247,13 @@ function resolveRoute(relativePath, isInit, { emitLegacyScripts, isTsProject, ou
 	// Folder routing
 	for (const part of parts) {
 		const lowerPart = part.toLowerCase();
-		
-		if (lowerServiceMap[lowerPart]) {
-			targetService = lowerServiceMap[lowerPart];
-			lastRouteKeyword = lowerPart;
+
+		if (lowerCaseServiceMap[lowerPart]) {
+			targetService = lowerCaseServiceMap[lowerPart];
+			lastRouteKeyword = upperCaseServiceMap[lowerPart];
 		}
 
-		virtualParts.push(part);
+		virtualParts.push(upperCaseServiceMap[lowerPart] || part);
 	}
 
 	let matchedSuffixLength = 0;
@@ -275,6 +275,9 @@ function resolveRoute(relativePath, isInit, { emitLegacyScripts, isTsProject, ou
 		if (!isInit) {
 			virtualParts.push(pascalMatch[1]);
 		}
+	}
+	if (mappedService && !lastRouteKeyword) {
+		targetService = mappedService;
 	}
 
 	// Scripts with non-legacy RunContext run incorrectly in StarterPlayer container.
