@@ -270,13 +270,14 @@ function resolveRoute(relativePath, isInit, { emitLegacyScripts, isTsProject, ou
 		matchedSuffixLength = pascalMatch[0].length;
 	}
 	if (mappedService && !lastRouteKeyword) {
-		// Scripts with non-legacy RunContext run incorrectly in StarterPlayer container.
-		// Instead, always put them in ReplicatedStorage
-		if (emitLegacyScripts === false && mappedService === "StarterPlayerScripts") {
-			targetService = "ReplicatedStorage";
-		} else {
-			targetService = mappedService;
-		}
+		targetService = mappedService;
+	}
+
+	// Scripts with non-legacy RunContext run incorrectly in StarterPlayer container.
+	// Instead, always put them in ReplicatedStorage
+	const isStarterPlayerContainer = targetService === "StarterPlayerScripts" || targetService === "StarterCharacterScripts";
+	if (emitLegacyScripts === false && isStarterPlayerContainer) {
+		targetService = "ReplicatedStorage";
 	}
 
 	let nodeName = basename;
