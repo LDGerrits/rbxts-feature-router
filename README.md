@@ -65,7 +65,7 @@ Here is a default configuration structure that works for both roblox-ts and luau
 		"output": "build.project.json", 
 		"build": "dist" 
 	},
-	"project": {
+	"template": {
 		"name": "roblox-project",
 		"globIgnorePaths": [
 			"**/package.json",

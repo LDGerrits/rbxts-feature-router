@@ -12,7 +12,7 @@
 		"output": "build.project.json", 
 		"build": "dist" 
 	},
-	"project": {
+	"template": {
 		"name": "roblox-project",
 		"globIgnorePaths": [
 			"**/package.json",
